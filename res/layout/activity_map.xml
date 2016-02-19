@@ -8,15 +8,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ubirouting.ubimapdemo.MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/start_map_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="open map" />
+    <com.ubirouting.ubimaplib.View.UbiMapView
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </RelativeLayout>

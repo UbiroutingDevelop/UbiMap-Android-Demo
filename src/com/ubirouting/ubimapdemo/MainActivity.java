@@ -1,34 +1,68 @@
 package com.ubirouting.ubimapdemo;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class MainActivity extends ActionBarActivity {
+import com.ubirouting.ubimaplib.Loader;
+import com.ubirouting.ubimaplib.UbiMapDownloadListener;
+import com.ubirouting.ubimaplib.data.UbiMapDownloader;
+
+public class MainActivity extends Activity implements OnClickListener {
+	private Button mMapBtn;
+	private UbiMapDownloader mMapDownloader;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		mMapBtn = (Button) findViewById(R.id.start_map_btn);
+		mMapBtn.setOnClickListener(this);
+		Loader.loadWindowParas(this);
+
+		mMapDownloader = new UbiMapDownloader();
+
+		mMapDownloader.tryDownloadRes(new UbiMapDownloadListener() {
+
+			@Override
+			public void onNoNeedDownload() {
+				Log.d("TAG", "onNoNeedDownload");
+			}
+
+			@Override
+			public void onFailed(Exception arg0) {
+				Log.d("TAG", arg0.getMessage());
+
+			}
+
+			@Override
+			public void onDownloading(float arg0) {
+				Log.d("TAG", "process is " + arg0);
+
+			}
+
+			@Override
+			public void onDownloadSuccess() {
+				Log.d("TAG", "onDownloadSuccess");
+
+			}
+
+			@Override
+			public void onDownloadStart() {
+				Log.d("TAG", "onDownloadStart");
+
+			}
+		});
+
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void onClick(View v) {
+
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

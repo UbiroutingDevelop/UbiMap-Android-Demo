@@ -4,6 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
@@ -22,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="ShituKey"
+            android:value="850ad59d5a41065a75fa33672cad5004" />
     </application>
 
 </manifest>
