@@ -5,7 +5,7 @@ UbiMap Demo
 
 #1 准备工作
 
-获取识途矢量地图SDK
+获取识途矢量地图SDK（获取SDK请联系 contact@ubirouting.com )
 
 - ubimaplib_v1.3.jar 
 - libubimap.so
