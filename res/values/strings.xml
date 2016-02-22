@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">ubimapDemo</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello">Hello UbiMap!</string>
     <string name="action_settings">Settings</string>
 
 </resources>
