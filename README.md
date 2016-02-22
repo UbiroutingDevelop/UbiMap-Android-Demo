@@ -1,6 +1,8 @@
 UbiMap Demo
 =====
 
+![alt phone](http://ubirouting.com/imageUse/UbiMap.gif)
+
 #1 准备工作
 
 获取识途矢量地图SDK
@@ -142,3 +144,4 @@ UbiMap Demo
 
 	UbiMapView mMap = (UbiMapView) findViewById(R.id.mapview);
 	mMap.load(mapId);
+
