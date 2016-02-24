@@ -4,5 +4,8 @@
     <string name="app_name">ubimapDemo</string>
     <string name="hello">Hello UbiMap!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="view.storedetail.setstart">设为起点</string>
+    <string name="view.storedetail.setend">设为终点</string>
+    <string name="view.storedetail.detail">详情</string>
+	
 </resources>

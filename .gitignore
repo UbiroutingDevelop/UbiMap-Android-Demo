@@ -1,0 +1,12 @@
+.classpath
+.project
+proguard-project.txt
+project.properties
+.settings
+bin
+gen
+obj
+.externalToolBuilders
+lint.xml
+libs
+assets

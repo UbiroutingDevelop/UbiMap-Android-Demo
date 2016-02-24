@@ -16,5 +16,10 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <color name="shitu.main">#00baf0</color>
+    <color name="shitu.line">#e2e2e2</color>
+    <color name="view.store.detail.bgcolor">#ffffff</color>
 
 </resources>
+	

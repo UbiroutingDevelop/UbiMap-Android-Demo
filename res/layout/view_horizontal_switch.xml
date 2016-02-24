@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+    <RelativeLayout
+        android:id="@+id/rlHorizontalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f6f7f7" >
+
+        <ImageButton
+            android:id="@+id/ibtnSwitchFloorLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#00000000"
+            android:src="@drawable/hor_left_selector" />
+
+        <ImageButton
+            android:id="@+id/ibtnSwitchFloorRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="#00000000"
+            android:src="@drawable/hor_right_selector" />
+
+        <com.ubirouting.ubimapdemo.view.HorizontalListView
+            android:id="@+id/hlvHView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ibtnSwitchFloorLeft"
+            android:layout_toLeftOf="@+id/ibtnSwitchFloorRight"
+            android:background="#f6f7f7" 
+        
+        />
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#666666" />
+        
+    </RelativeLayout>
+
+</RelativeLayout>

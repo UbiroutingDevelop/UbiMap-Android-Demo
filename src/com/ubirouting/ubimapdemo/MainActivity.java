@@ -89,9 +89,70 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.start_map_btn:
-
+//		switch (v.getId()) {
+//		case R.id.start_map_btn:
+//
+//			mMapDownloader.tryDownloadMap(mapId, new UbiMapDownloadListener() {
+//
+//				@Override
+//				public void onNoNeedDownload() {
+//					// Usually do nothing
+//					Intent i = new Intent();
+//					i.putExtra("mapId", mapId);
+//					i.setClass(MainActivity.this, MapActivity.class);
+//					MainActivity.this.startActivity(i);
+//				}
+//
+//				@Override
+//				public void onFailed(String arg0) {
+//					// Must check the NULL situation of mDownloadDialog, because
+//					// the
+//					// onDownloadStart() is
+//					// only invoked when there is a new version of map to be
+//					// downloading.
+//					if (mDownloadDialog != null)
+//						mDownloadDialog.dismiss();
+//					Toast.makeText(MainActivity.this, "download failed because of " + arg0, Toast.LENGTH_LONG).show();
+//				}
+//
+//				@Override
+//				public void onDownloading(float percent) {
+//					mDownloadDialog.setMessage("downloading map.." + (int) (percent * 100) + "%");
+//				}
+//
+//				@Override
+//				public void onDownloadSuccess() {
+//					mDownloadDialog.dismiss();
+//
+//					Intent i = new Intent();
+//					i.putExtra("mapId", mapId);
+//					i.setClass(MainActivity.this, MapActivity.class);
+//					MainActivity.this.startActivity(i);
+//				}
+//
+//				@Override
+//				public void onDownloadStart() {
+//					if (mDownloadDialog != null)
+//						mDownloadDialog.dismiss();
+//
+//					mDownloadDialog = new ProgressDialog(MainActivity.this);
+//					mDownloadDialog.setMessage("downloading map..");
+//					mDownloadDialog.setCancelable(false);
+//					mDownloadDialog.show();
+//
+//				}
+//			});
+//
+//			break;
+//		case R.id.enter_map_btn:
+//			if (mMapDownloader.isMapFileReady(mapId)) {
+//				Intent i = new Intent();
+//				i.putExtra("mapId", mapId);
+//				i.setClass(MainActivity.this, MapActivity.class);
+//				MainActivity.this.startActivity(i);
+//			}
+//		}
+		if(v.getId()==R.id.start_map_btn){
 			mMapDownloader.tryDownloadMap(mapId, new UbiMapDownloadListener() {
 
 				@Override
@@ -142,9 +203,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				}
 			});
-
-			break;
-		case R.id.enter_map_btn:
+		}else if(v.getId()==R.id.enter_map_btn){
 			if (mMapDownloader.isMapFileReady(mapId)) {
 				Intent i = new Intent();
 				i.putExtra("mapId", mapId);
@@ -152,7 +211,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				MainActivity.this.startActivity(i);
 			}
 		}
-
 	}
 
 	private static void debug(String msg) {

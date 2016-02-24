@@ -4,9 +4,24 @@
     android:layout_height="match_parent"
     tools:context="com.ubirouting.ubimapdemo.MainActivity" >
 
+    <com.ubirouting.ubimapdemo.view.HorizontalSwitchListView 
+        android:id="@+id/hslvSwitchList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    
     <com.ubirouting.ubimaplib.UbiMapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent" 
+        android:layout_below="@id/hslvSwitchList"
+        />
+    
+    <com.ubirouting.ubimapdemo.view.StoreDetailView 
+        android:id="@+id/sdvDetailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>

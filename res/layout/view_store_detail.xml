@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:background="@drawable/detail_shape"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="6dp">
+
+    <TextView
+        android:id="@+id/store_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#313131"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/store_detail_subname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/store_detail_name"
+        android:paddingLeft="1dp"
+        android:textColor="#ababab"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/store_detail_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/store_detail_subname"
+        android:layout_marginTop="10dp"
+        android:background="@color/shitu.line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/store_detail_setAsStart"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/view.storedetail.setstart"
+            android:textColor="@drawable/less_btn_selector"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/store_detail_setAsEnd"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/view.storedetail.setend"
+            android:textColor="@color/shitu.main"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/store_detail_detail"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/view.storedetail.detail"
+            android:textColor="@color/shitu.main"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
