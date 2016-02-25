@@ -145,3 +145,8 @@ UbiMap Demo
 	UbiMapView mMap = (UbiMapView) findViewById(R.id.mapview);
 	mMap.load(mapId);
 
+#4 Demo TODO
+
+1. 添加搜索示例
+2. 添加定位点显示示例
+3. 添加地图操作控件示例
