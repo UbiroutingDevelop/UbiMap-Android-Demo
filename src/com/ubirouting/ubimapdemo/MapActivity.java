@@ -41,7 +41,6 @@ public class MapActivity extends Activity {
 		setContentView(R.layout.activity_map);
 		Intent i = getIntent();
 		long mapId = i.getLongExtra("mapId", -1);
-
 		mMap = (UbiMapView) findViewById(R.id.mapview);
 
 		// load the map via mapId
@@ -56,6 +55,8 @@ public class MapActivity extends Activity {
 			@Override
 			public void onClickStart() {
 				if (currentModel != null) {
+
+					// mark start to navigate
 					mMap.markAsStart(currentModel);
 				}
 			}
@@ -63,13 +64,16 @@ public class MapActivity extends Activity {
 			@Override
 			public void onClickEnd() {
 				if (currentModel != null) {
+					// mark end to navigate. If start and end POI are all set
+					// up,
+					// a path will be drawn on map.
 					mMap.markAsEnd(currentModel);
 				}
 			}
 
 			@Override
 			public void onClickDetail() {
-				//TODO
+				// TODO
 			}
 		});
 
@@ -80,6 +84,10 @@ public class MapActivity extends Activity {
 
 			}
 
+			// When map loading completed, the floor information will be
+			// returned by this method. You can access floors via 'floorList'.
+			// Each element in 'floorList' is a instance of
+			// com.ubirouting.ubimaplib.model.map.Floor class.
 			@Override
 			public void onLoadData(List floorList) {
 				Iterator<Floor> itr = floorList.iterator();
@@ -102,6 +110,8 @@ public class MapActivity extends Activity {
 				Toast.makeText(MapActivity.this, "Load data failed", Toast.LENGTH_LONG).show();
 			}
 
+			// Called when clicking on the map view, returning the x and y
+			// coordinate of click point.
 			@Override
 			public void onClickMap(float x, float y) {
 				if (mPoiDetailView != null) {
@@ -109,6 +119,7 @@ public class MapActivity extends Activity {
 				}
 			}
 
+			// Called when clicking on certain area
 			@Override
 			public void onClickArea(Area area) {
 				if (mPoiDetailView != null) {
@@ -119,6 +130,7 @@ public class MapActivity extends Activity {
 				mPoiDetailView.setIcon(area.getIcon());
 			}
 
+			// Called when clicking on certain mark
 			@Override
 			public void onClickMark(Mark mark) {
 				if (mPoiDetailView != null) {
