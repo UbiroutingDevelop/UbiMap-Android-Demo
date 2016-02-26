@@ -16,137 +16,125 @@ import android.widget.TextView;
 
 import com.ubirouting.ubimapdemo.R;
 
-
 public class StoreDetailView extends RelativeLayout implements View.OnClickListener {
-    private Context context;
+	private Context context;
 
-    private Button setAsStartBtn, setAsEndBtn, showDetailBtn;
-    private TextView titleTxt, subTitlelTxt;
-    private ImageView imageView;
+	private Button setAsStartBtn, setAsEndBtn, showDetailBtn;
+	private TextView titleTxt, subTitlelTxt;
+	private ImageView imageView;
 
+	private StoreDetailClickListener listener;
 
-    private StoreDetailClickListener listener;
+	public StoreDetailView(Context context) {
+		super(context);
+		this.context = context;
 
-    public StoreDetailView(Context context) {
-        super(context);
-        this.context = context;
+		initView();
+	}
 
-        initView();
-    }
+	public StoreDetailView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		this.context = context;
 
-    public StoreDetailView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.context = context;
+		initView();
+	}
 
-        initView();
-    }
+	public StoreDetailView(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		this.context = context;
 
-    public StoreDetailView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.context = context;
+		initView();
+	}
 
-        initView();
-    }
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public StoreDetailView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+		this.context = context;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public StoreDetailView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        this.context = context;
+		initView();
+	}
 
-        initView();
-    }
+	private void initView() {
+		LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(R.layout.view_store_detail, this);
 
-    private void initView() {
-        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_store_detail, this);
+		this.setAsStartBtn = (Button) this.findViewById(R.id.store_detail_setAsStart);
+		setAsStartBtn.setOnClickListener(this);
+		this.setAsEndBtn = (Button) this.findViewById(R.id.store_detail_setAsEnd);
+		setAsEndBtn.setOnClickListener(this);
+		this.showDetailBtn = (Button) this.findViewById(R.id.store_detail_detail);
+		showDetailBtn.setOnClickListener(this);
 
-        this.setAsStartBtn = (Button) this.findViewById(R.id.store_detail_setAsStart);
-        setAsStartBtn.setOnClickListener(this);
-        this.setAsEndBtn = (Button) this.findViewById(R.id.store_detail_setAsEnd);
-        setAsEndBtn.setOnClickListener(this);
-        this.showDetailBtn = (Button) this.findViewById(R.id.store_detail_detail);
-        showDetailBtn.setOnClickListener(this);
+		titleTxt = (TextView) this.findViewById(R.id.store_detail_name);
+		subTitlelTxt = (TextView) this.findViewById(R.id.store_detail_subname);
 
-        titleTxt = (TextView) this.findViewById(R.id.store_detail_name);
-        subTitlelTxt = (TextView) this.findViewById(R.id.store_detail_subname);
+		imageView = (ImageView) this.findViewById(R.id.store_detail_icon);
 
-        imageView = (ImageView) this.findViewById(R.id.store_detail_icon);
+		this.setOnTouchListener(new OnTouchListener() {
 
-        this.setOnTouchListener(new OnTouchListener() {
-			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				return true;
 			}
 		});
-    }
+	}
 
-    public void setListener(StoreDetailClickListener l) {
-        this.listener = l;
-    }
+	public void setListener(StoreDetailClickListener l) {
+		this.listener = l;
+	}
 
-    public void show() {
+	public void show() {
 
-        boolean startAnimation = (this.getVisibility() != View.VISIBLE);
-        this.setVisibility(View.VISIBLE);
-        if (startAnimation) {
-            ValueAnimator v = ValueAnimator.ofFloat(0, 1.f);
-            v.setDuration(500);
-            v.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    StoreDetailView.this.setAlpha((Float) animation.getAnimatedValue());
-                }
-            });
-            v.start();
-        }
+		boolean startAnimation = (this.getVisibility() != View.VISIBLE);
+		this.setVisibility(View.VISIBLE);
+		if (startAnimation) {
+			ValueAnimator v = ValueAnimator.ofFloat(0, 1.f);
+			v.setDuration(500);
+			v.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					StoreDetailView.this.setAlpha((Float) animation.getAnimatedValue());
+				}
+			});
+			v.start();
+		}
 
-    }
+	}
 
-    public void disapeal() {
-        this.setVisibility(View.INVISIBLE);
-    }
+	public void hide() {
+		this.setVisibility(View.INVISIBLE);
+	}
 
-    public void setTitle(String title) {
-        titleTxt.setText(title);
-    }
+	public void setTitle(String title) {
+		titleTxt.setText(title);
+	}
 
-    public void setIcon(Bitmap icon) {
-        imageView.setImageBitmap(icon);
-    }
+	public void setIcon(Bitmap icon) {
+		imageView.setImageBitmap(icon);
+	}
 
-    public void setSubTitlel(String subTitlel) {
-        subTitlelTxt.setText(subTitlel);
-    }
+	public void setSubTitlel(String subTitlel) {
+		subTitlelTxt.setText(subTitlel);
+	}
 
-    @Override
-    public void onClick(View v) {
-        if (listener == null) return;
-//        switch (v.getId()) {
-//            case R.id.store_detail_setAsStart:
-//            	listener.onClickStart();
-//                break;
-//            case R.id.store_detail_setAsEnd:
-//                listener.onClickEnd();
-//                break;
-//            case R.id.store_detail_detail:
-//                listener.onClickDetail();
-//                break;
-//        }
-        if(v.getId()==R.id.store_detail_setAsStart){
-    		listener.onClickStart();
-    	}else if(v.getId()==R.id.store_detail_setAsEnd){
-    		listener.onClickEnd();
-    	}else if(v.getId()==R.id.store_detail_detail){
-    		listener.onClickDetail();
-    	}
-    }
-    
-    public interface StoreDetailClickListener {
-        void onClickStart();
+	@Override
+	public void onClick(View v) {
+		if (listener == null)
+			return;
+		if (v.getId() == R.id.store_detail_setAsStart) {
+			listener.onClickStart();
+		} else if (v.getId() == R.id.store_detail_setAsEnd) {
+			listener.onClickEnd();
+		} else if (v.getId() == R.id.store_detail_detail) {
+			listener.onClickDetail();
+		}
+	}
 
-        void onClickEnd();
+	public interface StoreDetailClickListener {
+		void onClickStart();
 
-        void onClickDetail();
-    }
+		void onClickEnd();
+
+		void onClickDetail();
+	}
 }

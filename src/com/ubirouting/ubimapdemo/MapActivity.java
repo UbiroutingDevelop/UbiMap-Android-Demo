@@ -1,6 +1,7 @@
 package com.ubirouting.ubimapdemo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.ubirouting.ubimapdemo.view.HorizontalSwitchListView;
 import com.ubirouting.ubimapdemo.view.HorizontalSwitchListView.HorizontalSwitchClickListener;
@@ -16,144 +18,129 @@ import com.ubirouting.ubimapdemo.view.StoreDetailView.StoreDetailClickListener;
 import com.ubirouting.ubimaplib.UbiMapListener;
 import com.ubirouting.ubimaplib.UbiMapView;
 import com.ubirouting.ubimaplib.model.map.Area;
+import com.ubirouting.ubimaplib.model.map.Floor;
 import com.ubirouting.ubimaplib.model.map.MapModel;
 import com.ubirouting.ubimaplib.model.map.Mark;
 
 public class MapActivity extends Activity {
 
-	//地图控件
+	// UbiMapView object
 	private UbiMapView mMap;
-	//选层横向List
-	private HorizontalSwitchListView hslvSwitchList;
-	//设置起终点面板
-	private StoreDetailView sdvDetailView;
-	
-	private ArrayList<String> list;
-	private MapModel currentModel=null;
-	
+
+	// Floor Switching Widget
+	private HorizontalSwitchListView mFloorSwitcher;
+
+	// Pop-up storeDetail Widget
+	private StoreDetailView mPoiDetailView;
+	private ArrayList<String> floorStrList;
+	private MapModel currentModel = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-
-		//------------------------------------------
-		// 添加地图
-		//------------------------------------------
 		Intent i = getIntent();
 		long mapId = i.getLongExtra("mapId", -1);
-
 		mMap = (UbiMapView) findViewById(R.id.mapview);
-		
-		//地图SDK，根据mapId加载地图
+
+		// load the map via mapId
 		mMap.load(mapId);
-		
-		//------------------------------------------
-		// 设置横向List
-		// ------------------------------------------
-		hslvSwitchList=(HorizontalSwitchListView) findViewById(R.id.hslvSwitchList);
-		list = new ArrayList<String>();
-		// 您可以通过获取我们SDK ，其中的某些功能，获取楼层列表，这里只是模拟数据
-		initList();
-		
-		hslvSwitchList.setAdapter(list,this);
-		hslvSwitchList.setOnHorizontalSwitchListener(new HorizontalSwitchClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				// TODO Auto-generated method stub
-			}
-		});
-		hslvSwitchList.setInitItem("楼层1");
-		
-		
-		//------------------------------------------
-		//设置起点终点
-		//------------------------------------------
-		sdvDetailView=(StoreDetailView) findViewById(R.id.sdvDetailView);
-		sdvDetailView.setListener(new StoreDetailClickListener() {
-			
+
+		mFloorSwitcher = (HorizontalSwitchListView) findViewById(R.id.hslvSwitchList);
+		floorStrList = new ArrayList<String>();
+
+		mPoiDetailView = (StoreDetailView) findViewById(R.id.sdvDetailView);
+		mPoiDetailView.setListener(new StoreDetailClickListener() {
+
 			@Override
 			public void onClickStart() {
-				if(currentModel!=null){
+				if (currentModel != null) {
+
+					// mark start to navigate
 					mMap.markAsStart(currentModel);
 				}
 			}
-			
+
 			@Override
 			public void onClickEnd() {
-				if(currentModel!=null){
+				if (currentModel != null) {
+					// mark end to navigate. If start and end POI are all set
+					// up,
+					// a path will be drawn on map.
 					mMap.markAsEnd(currentModel);
 				}
 			}
-			
+
 			@Override
 			public void onClickDetail() {
-				// TODO Auto-generated method stub
-				
+				// TODO
 			}
 		});
-		
+
 		mMap.setOnMapListener(new UbiMapListener() {
 
 			@Override
-			public void onSwitchFloor(int arg0) {
-				// TODO Auto-generated method stub
+			public void onSwitchFloor(int area) {
 
 			}
 
+			// When map loading completed, the floor information will be
+			// returned by this method. You can access floors via 'floorList'.
+			// Each element in 'floorList' is a instance of
+			// com.ubirouting.ubimaplib.model.map.Floor class.
 			@Override
-			public void onLoadData(List arg0) {
-				// TODO Auto-generated method stub
+			public void onLoadData(List floorList) {
+				Iterator<Floor> itr = floorList.iterator();
+				while (itr.hasNext()) {
+					Floor f = itr.next();
+					floorStrList.add(f.getName());
+				}
 
+				mFloorSwitcher.setAdapter(floorStrList, MapActivity.this);
+				mFloorSwitcher.setOnHorizontalSwitchListener(new HorizontalSwitchClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						// TODO
+					}
+				});
 			}
 
 			@Override
 			public void onFailedLoadData() {
-				// TODO Auto-generated method stub
-
+				Toast.makeText(MapActivity.this, "Load data failed", Toast.LENGTH_LONG).show();
 			}
 
+			// Called when clicking on the map view, returning the x and y
+			// coordinate of click point.
 			@Override
-			public void onClickMap(float arg0, float arg1) {
-				// TODO Auto-generated method stub
-				if (sdvDetailView != null) {
-					sdvDetailView.disapeal();
+			public void onClickMap(float x, float y) {
+				if (mPoiDetailView != null) {
+					mPoiDetailView.hide();
 				}
 			}
 
+			// Called when clicking on certain area
 			@Override
-			public void onClickArea(Area arg0) {
-				// TODO Auto-generated method stub
-				if (sdvDetailView != null) {
-					sdvDetailView.show();
+			public void onClickArea(Area area) {
+				if (mPoiDetailView != null) {
+					mPoiDetailView.show();
 				}
-				currentModel = arg0;
-				sdvDetailView.setTitle(arg0.getName().trim().equals("")?"Other":arg0.getName());
-				sdvDetailView.setIcon(arg0.getIcon());
+				currentModel = area;
+				mPoiDetailView.setTitle(area.getName().trim().equals("") ? "Other" : area.getName());
+				mPoiDetailView.setIcon(area.getIcon());
 			}
 
+			// Called when clicking on certain mark
 			@Override
-			public void onClickMark(Mark arg0) {
-				// TODO Auto-generated method stub
-				if (sdvDetailView != null) {
-					sdvDetailView.show();
+			public void onClickMark(Mark mark) {
+				if (mPoiDetailView != null) {
+					mPoiDetailView.show();
 				}
-				currentModel = arg0;
-				sdvDetailView.setTitle("Other");
-				sdvDetailView.setIcon(arg0.getIcon());
+				currentModel = mark;
+				mPoiDetailView.setTitle("Other");
+				mPoiDetailView.setIcon(mark.getIcon());
 			}
 
 		});
 	}
-	
-	private void initList(){
-		list.add("楼层1");
-		list.add("楼层2");
-		list.add("楼层3");
-		list.add("楼层4");
-		list.add("楼层5");
-		list.add("楼层6");
-		list.add("楼层7");
-	}
-
 }

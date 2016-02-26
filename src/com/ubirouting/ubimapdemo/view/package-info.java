@@ -1,5 +1,4 @@
 /**
- * HorizontalList widget and DetailView widget
- * Use the islibrary to use widget.
+ * Useful widget for UbiMapView
  */
 package com.ubirouting.ubimapdemo.view;

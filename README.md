@@ -5,7 +5,7 @@ UbiMap Demo
 
 #1 准备工作
 
-获取识途矢量地图SDK（获取SDK请联系 contact@ubirouting.com )
+[获取识途矢量地图SDK](https://github.com/UbiroutingDevelop/UbiMap-SDK)
 
 - ubimaplib_v1.3.jar 
 - libubimap.so
@@ -145,3 +145,8 @@ UbiMap Demo
 	UbiMapView mMap = (UbiMapView) findViewById(R.id.mapview);
 	mMap.load(mapId);
 
+#4 Demo TODO
+
+1. 添加搜索示例
+2. 添加定位点显示示例
+3. 添加地图操作控件示例
