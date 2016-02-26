@@ -98,6 +98,14 @@ public class HorizontalSwitchListView extends RelativeLayout{
     public void setInitItem(String itemText){
     	horList.setInitItem(itemText);
     }
+    
+    /**
+     * need adapter
+     * @param index index
+     */
+    public void setInitItem(int index){
+    	setInitItem(list.get(index));
+    }
 
     public void setOnHorizontalSwitchListener(HorizontalSwitchClickListener listener){
     	this.listener=listener;
