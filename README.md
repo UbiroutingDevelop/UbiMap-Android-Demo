@@ -152,9 +152,63 @@ UbiMap Demo
 	
 	// 刷新定位点角度
 	mMap.refreshAngle(mDegree);
+	
+#5 地图POI介绍
 
-#4 Demo TODO
+总体来说，识途矢量地图上包含2种POI。
+
+- Mark，无区域的POI, 即该POI在地图上仅显示为一个单独的图标，常用来表示电梯、ATM、厕所、问讯处等。此类POI在实际环境中占据的区域较少，所以往往用一个单独的图标来表示；
+- Area, 区域POI, 即该POI在地图上显示为一个多边形，并且带有店铺图标和文字。常用来表示店铺、停车位等比较大的区域。
+
+上述2类POI均继承自MapModel。
+
+	
+#5 地图点击回调
+	mMap.setOnMapListener(new UbiMapListener() {
+
+			@Override
+			public void onSwitchFloor(int area) {
+				//当切换楼层时调用
+			}
+
+			// When map loading completed, the floor information will be
+			// returned by this method. You can access floors via 'floorList'.
+			// Each element in 'floorList' is a instance of
+			// com.ubirouting.ubimaplib.model.map.Floor class.
+			@Override
+			public void onLoadData(List floorList) {
+				//当加载完地图后调用，返回所有楼层信息。每一个楼层信息为com.ubirouting.ubimaplib.model.map.Floor的实例
+			}
+
+			@Override
+			public void onFailedLoadData() {
+				// 地图加载失败
+			}
+
+			@Override
+			public void onClickMap(float x, float y) {
+				// 当点击地图时回调				
+			}
+
+			@Override
+			public void onClickArea(Area area) {
+				// 当点击区域时回调。区域为大块区域，常用来表示店铺、停车位等有一定面积的POI。	
+			}
+
+			@Override
+			public void onClickMark(Mark mark) {
+				//当点击Mark时回调。Mark为地图上的无区域的小图标，常用来表示厕所、电梯、ATM等单点POI
+			}
+
+		});
+		
+#6 导航路径
+
+	// 调用后，将在地图中规划最短路径
+	mMap.navigate(startMapModel, endMapModel);
+
+#5 Demo TODO
 
 1. 添加搜索示例
-2. 添加定位点显示示例
-3. 添加地图操作控件示例
+2. ~~添加定位点显示示例~~
+3. ~~添加地图操作控件示例~~
