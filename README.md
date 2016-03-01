@@ -144,6 +144,14 @@ UbiMap Demo
 
 	UbiMapView mMap = (UbiMapView) findViewById(R.id.mapview);
 	mMap.load(mapId);
+	
+#4 显示及刷新定位点
+
+	// 坐标为该矢量地图的相对像素坐标
+	mMap.refreshPosition(x, y);
+	
+	// 刷新定位点角度
+	mMap.refreshAngle(mDegree);
 
 #4 Demo TODO
 
