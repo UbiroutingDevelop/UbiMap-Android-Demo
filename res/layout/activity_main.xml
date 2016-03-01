@@ -26,6 +26,12 @@
         android:id="@+id/enter_map_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="enter map activity" />
+        android:text="map widget activity" />
+
+    <Button
+        android:id="@+id/enter_position_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="map with position demo" />
 
 </LinearLayout>

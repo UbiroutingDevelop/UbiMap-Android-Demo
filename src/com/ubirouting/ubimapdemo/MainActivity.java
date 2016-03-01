@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import com.ubirouting.ubimaplib.UbiMapDownloadListener;
 import com.ubirouting.ubimaplib.data.UbiMapDownloader;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private Button mMapDownloadBtn, mEnterMapBtn;
+	private Button mMapDownloadBtn, mEnterMapBtn, mPositionMapBtn;
 	private UbiMapDownloader mMapDownloader;
 	private ProgressDialog mDownloadDialog;
 
@@ -26,18 +25,23 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mMapDownloadBtn = (Button) findViewById(R.id.start_map_btn);
 		mEnterMapBtn = (Button) findViewById(R.id.enter_map_btn);
+		mPositionMapBtn = (Button) findViewById(R.id.enter_position_btn);
+
 		mMapDownloadBtn.setOnClickListener(this);
 		mEnterMapBtn.setOnClickListener(this);
+		mPositionMapBtn.setOnClickListener(this);
 
-		// Should be invoked ahead of all other UbiMap API.
+		// Should be invoked before all other UbiMap API.
 		Loader.loadWindowParas(this);
 
 		// Try to download resource file which contains the necessary texture
-		// for map rendering. If resource file has been already download, then
+		// for map rendering. If resource file has been already downloaded, then
 		// UbiMapDownloader won't download unless there is an new version of
 		// resource file.
-		// **IMPORTANT** : SHOULD BE INVOKED IN UI THREAD.
+
+		// **IMPORTANT** : SHOULD INITIALISE IN UI THREAD.
 		mMapDownloader = new UbiMapDownloader();
+
 		mMapDownloader.tryDownloadRes(new UbiMapDownloadListener() {
 
 			// If no resource file should be downloaded.
@@ -85,18 +89,19 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
-	final long mapId = 1000361;
+	// test map id
+	static final long sMapId = 1000361;
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId()==R.id.start_map_btn){
-			mMapDownloader.tryDownloadMap(mapId, new UbiMapDownloadListener() {
+		if (v.getId() == R.id.start_map_btn) {
+			mMapDownloader.tryDownloadMap(sMapId, new UbiMapDownloadListener() {
 
 				@Override
 				public void onNoNeedDownload() {
 					// Usually do nothing
 					Intent i = new Intent();
-					i.putExtra("mapId", mapId);
+					i.putExtra("mapId", sMapId);
 					i.setClass(MainActivity.this, MapActivity.class);
 					MainActivity.this.startActivity(i);
 				}
@@ -123,7 +128,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					mDownloadDialog.dismiss();
 
 					Intent i = new Intent();
-					i.putExtra("mapId", mapId);
+					i.putExtra("mapId", sMapId);
 					i.setClass(MainActivity.this, MapActivity.class);
 					MainActivity.this.startActivity(i);
 				}
@@ -140,18 +145,22 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				}
 			});
-		}else if(v.getId()==R.id.enter_map_btn){
-			if (mMapDownloader.isMapFileReady(mapId)) {
+		} else if (v.getId() == R.id.enter_map_btn) {
+			// test whether map file is ready
+			if (mMapDownloader.isMapFileReady(sMapId)) {
 				Intent i = new Intent();
-				i.putExtra("mapId", mapId);
+				i.putExtra("mapId", sMapId);
 				i.setClass(MainActivity.this, MapActivity.class);
 				MainActivity.this.startActivity(i);
 			}
+		} else if (v.getId() == R.id.enter_position_btn) {
+			if (mMapDownloader.isMapFileReady(sMapId)) {
+				Intent i = new Intent();
+				i.putExtra("mapId", sMapId);
+				i.setClass(MainActivity.this, PositionActivity.class);
+				MainActivity.this.startActivity(i);
+			}
 		}
-	}
-
-	private static void debug(String msg) {
-		Log.d("UbiMapDemo", msg);
 	}
 
 }
