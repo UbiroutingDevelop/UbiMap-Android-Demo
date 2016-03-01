@@ -35,6 +35,9 @@ public class MapActivity extends Activity {
 	private ArrayList<String> floorStrList;
 	private MapModel currentModel = null;
 
+	private MapModel startModel = null;
+	private MapModel endModel = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,18 +59,21 @@ public class MapActivity extends Activity {
 			public void onClickStart() {
 				if (currentModel != null) {
 
-					// mark start to navigate
+					// mark start
 					mMap.markAsStart(currentModel);
+					startModel = currentModel;
 				}
 			}
 
 			@Override
 			public void onClickEnd() {
 				if (currentModel != null) {
-					// mark end to navigate. If start and end POI are all set
-					// up,
-					// a path will be drawn on map.
+					// mark end
 					mMap.markAsEnd(currentModel);
+
+					if (startModel != null && currentModel != null)
+						// navigate
+						mMap.navigate(startModel, currentModel);
 				}
 			}
 
