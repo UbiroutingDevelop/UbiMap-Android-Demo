@@ -3,6 +3,17 @@ UbiMap Demo
 
 ![alt phone](http://ubirouting.com/imageUse/UbiMap.gif)
 
+UbiMap矢量图引擎是由识途团队研发的矢量地图引擎，可用来显示商场、博物馆、景区等特定场所的精细地图。
+
+特点：
+
+- 操作流畅、体验良好；
+- 轻量级的SDK；
+- 轻量级的矢量地图：一般地图仅不到300KB。
+- 支持导航；
+- 跨平台格式，iOS\Android\HTML5
+- 与识途室内定位SDK完美配合，为室内定位解决方案中不可获取一环；
+
 #1 准备工作
 
 [获取识途矢量地图SDK](https://github.com/UbiroutingDevelop/UbiMap-SDK)
@@ -145,13 +156,27 @@ UbiMap Demo
 	UbiMapView mMap = (UbiMapView) findViewById(R.id.mapview);
 	mMap.load(mapId);
 	
-#4 显示及刷新定位点
+#4 定位点
+
+UbiMap能通过传入一系列坐标，显示当前位置。*但定位本身并不属于UbiMap SDK的功能范畴*，您可下载[识途定位SDK](https://github.com/UbiroutingDevelop/NaturePosition-Android-SDK)实现室内定位的功能，也可通过其他室内定位SDK来传入坐标。。
+
+##4.1 坐标
 
 	// 坐标为该矢量地图的相对像素坐标
 	mMap.refreshPosition(x, y);
 	
+##4.2 角度
 	// 刷新定位点角度
 	mMap.refreshAngle(mDegree);
+	
+##4.3 跟随模式
+
+跟随模式，即为所有坐标的更新，都将引起地图的移动，定位点此时固定在屏幕中央。在跟随模式下，用户能对周围地图有更好的直观体验。
+
+跟随模式在手指触摸view后自动被破坏。
+	
+	//设置为跟随模式
+	mMap.switchFollowMode();
 	
 #5 地图POI介绍
 
@@ -163,7 +188,10 @@ UbiMap Demo
 上述2类POI均继承自MapModel。
 
 	
-#5 地图点击回调
+#5 点击事件
+
+设置UbiMapListener来获取点击事件。
+
 	mMap.setOnMapListener(new UbiMapListener() {
 
 			@Override
@@ -202,12 +230,25 @@ UbiMap Demo
 
 		});
 		
-#6 导航路径
+#6 导航
 
-	// 调用后，将在地图中规划最短路径
+	// 调用后，将在地图中规划最短路径。用于定点导航
 	mMap.navigate(startMapModel, endMapModel);
+	
+	// 根据坐标来导航，用于实时导航
+	mMap.navigate(x, y, endModel);
+	
+	// 清除路径
+	mMap.clearPath();
+	
+	
+	
+#7 搜索
+	
+	// 根据关键字搜索
+	List<MapModel> models = mMap.search(keyword);
 
-#5 Demo TODO
+#8 Demo TODO
 
 1. 添加搜索示例
 2. ~~添加定位点显示示例~~
