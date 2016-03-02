@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -99,6 +100,8 @@ public class MapActivity extends Activity {
 				Iterator<Floor> itr = floorList.iterator();
 				while (itr.hasNext()) {
 					Floor f = itr.next();
+					
+					Log.d("UbiMapDemo", f.toString());
 					floorStrList.add(f.getName());
 				}
 

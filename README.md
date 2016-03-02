@@ -163,11 +163,11 @@ UbiMap能通过传入一系列坐标，显示当前位置。*但定位本身并�
 ##4.1 坐标
 
 	// 坐标为该矢量地图的相对像素坐标
-	mMap.refreshPosition(x, y);
+	mMap.position(x, y);
 	
 ##4.2 角度
 	// 刷新定位点角度
-	mMap.refreshAngle(mDegree);
+	mMap.angle(mDegree);
 	
 ##4.3 跟随模式
 
@@ -205,7 +205,7 @@ UbiMap能通过传入一系列坐标，显示当前位置。*但定位本身并�
 			// com.ubirouting.ubimaplib.model.map.Floor class.
 			@Override
 			public void onLoadData(List floorList) {
-				//当加载完地图后调用，返回所有楼层信息。每一个楼层信息为com.ubirouting.ubimaplib.model.map.Floor的实例
+				//当加载完地图后调用，返回所有楼层信息。每一个楼层信息为com.ubirouting.ubimaplib.model.map.Floor的实例，其中包含该矢量地图的像素比例尺、像素长宽、与正北夹角等信息。
 			}
 
 			@Override

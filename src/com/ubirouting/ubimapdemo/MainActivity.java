@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	// test map id
-	static final long sMapId = 1000361;
+	static final long sMapId = 1001086;
 
 	@Override
 	public void onClick(View v) {

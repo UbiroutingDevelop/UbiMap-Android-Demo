@@ -51,8 +51,8 @@ public class PositionActivity extends Activity implements Runnable {
 		while (mIsRun) {
 
 			int p = mPoistionIndex % (positionTest.length / 2);
-			mMap.refreshPosition(positionTest[p * 2], positionTest[p * 2 + 1]);
-			mMap.refreshAngle(mDegree);
+			mMap.position(positionTest[p * 2], positionTest[p * 2 + 1]);
+			mMap.angle(mDegree);
 
 			mDegree += 30;
 
