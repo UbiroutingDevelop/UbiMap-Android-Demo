@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.ubirouting.ubimaplib.data.MapTypeWrongException;
 import com.ubirouting.ubimaplib.data.UbiMapDataHelper;
@@ -23,6 +24,10 @@ public class MapDataActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		TextView textView = new TextView(this);
+		textView.setText("See Logcat for details");
+		setContentView(textView);
+
 		Intent i = getIntent();
 		mMapId = i.getLongExtra("mapId", -1);
 
@@ -36,7 +41,7 @@ public class MapDataActivity extends Activity {
 
 			int floor = floors.get(0).area;
 			List<MapModel> pois = UbiMapDataHelper.allPoi(mMapId, floor);
-			
+
 			for (MapModel poi : pois) {
 				if (poi.isArea()) {
 					Log.d("UbiMapDemo", ((Area) poi).toString());
