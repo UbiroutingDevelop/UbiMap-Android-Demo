@@ -193,11 +193,12 @@ UbiMap能通过传入一系列坐标，显示当前位置。*但定位本身并�
 
 - Mark，无区域的POI, 即该POI在地图上仅显示为一个单独的图标，常用来表示电梯、ATM、厕所、问讯处等。此类POI在实际环境中占据的区域较少，所以往往用一个单独的图标来表示；
 
-![alt:area example](http://www.ubirouting.com/imageUse/ubimap_area_example.jpg)
+![alt:markexample](http://www.ubirouting.com/imageUse/ubimap_mark_example.jpg)
+
 
 - Area, 区域POI, 即该POI在地图上显示为一个多边形，并且带有店铺图标和文字。常用来表示店铺、停车位等比较大的区域。
 
-![alt:markexample](http://www.ubirouting.com/imageUse/ubimap_mark_example.jpg)
+![alt:area example](http://www.ubirouting.com/imageUse/ubimap_area_example.jpg)
 
 
 上述2类POI均继承自MapModel。 通过地图点击事件、搜索可获取响应的POI。此外，也可在不加载地图的情况下获取数据内的相关信息。见[获取地图内POI信息](#poi)
