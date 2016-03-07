@@ -268,32 +268,16 @@ UbiMap能通过传入一系列坐标，显示当前位置。*但定位本身并�
 您可在不加载地图的情况下，获取识途矢量地图中的楼层及POI信息。
 
 ```java
-
-	List<Floor> floors;
-	
-	try {
-		// 获取楼层信息
-		floors = UbiMapDataHelper.allFloor(mMapId);
-
-		for (Floor f : floors) {
-			Log.d("UbiMapDemo", f.toString());
-		}
-
-		int floor = floors.get(0).area;
-		// 获取POI信息，包含Area和Mark
-		List<MapModel> pois = UbiMapDataHelper.allPoi(mMapId, floor);
-		
-		for (MapModel poi : pois) {
-			if (poi.isArea()) {
-				Log.d("UbiMapDemo", ((Area) poi).toString());
-			} else if (poi.isMark()) {
-				Log.d("UbiMapDemo", ((Mark) poi).toString());
-			}
-		}
-	} catch (IOException e) {
-		e.printStackTrace();
-	} catch (MapTypeWrongException e) {
-		e.printStackTrace();
-	}
+	// 获取楼层信息
+	List<Floor> floors = UbiMapDataHelper.allFloor(mMapId);
 ```
+
+```java
+	// 获取某层POI
+	List<MapModel> pois = UbiMapDataHelper.allPoi(mMapId, floorNum);
+	
+	// 获取所有POI
+	List<MapModel> pois = UbiMapDataHelper.allPoi(mMapId);
+```
+
 
