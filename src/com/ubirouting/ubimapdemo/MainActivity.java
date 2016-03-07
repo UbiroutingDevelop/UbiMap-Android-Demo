@@ -14,7 +14,7 @@ import com.ubirouting.ubimaplib.UbiMapDownloadListener;
 import com.ubirouting.ubimaplib.data.UbiMapDownloader;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private Button mMapDownloadBtn, mEnterMapBtn, mPositionMapBtn;
+	private Button mMapDownloadBtn, mEnterMapBtn, mPositionMapBtn, mMapDataBtn;
 	private UbiMapDownloader mMapDownloader;
 	private ProgressDialog mDownloadDialog;
 
@@ -26,10 +26,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		mMapDownloadBtn = (Button) findViewById(R.id.start_map_btn);
 		mEnterMapBtn = (Button) findViewById(R.id.enter_map_btn);
 		mPositionMapBtn = (Button) findViewById(R.id.enter_position_btn);
+		mMapDataBtn = (Button) findViewById(R.id.enter_mapdata_btn);
 
 		mMapDownloadBtn.setOnClickListener(this);
 		mEnterMapBtn.setOnClickListener(this);
 		mPositionMapBtn.setOnClickListener(this);
+		mMapDataBtn.setOnClickListener(this);
 
 		// Should be invoked before all other UbiMap API.
 		Loader.loadWindowParas(this);
@@ -158,6 +160,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				Intent i = new Intent();
 				i.putExtra("mapId", sMapId);
 				i.setClass(MainActivity.this, PositionActivity.class);
+				MainActivity.this.startActivity(i);
+			}
+		} else if (v.getId() == R.id.enter_mapdata_btn) {
+			if (mMapDownloader.isMapFileReady(sMapId)) {
+				Intent i = new Intent();
+				i.putExtra("mapId", sMapId);
+				i.setClass(MainActivity.this, MapDataActivity.class);
 				MainActivity.this.startActivity(i);
 			}
 		}

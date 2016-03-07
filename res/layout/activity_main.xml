@@ -34,4 +34,10 @@
         android:layout_height="wrap_content"
         android:text="map with position demo" />
 
+    <Button
+        android:id="@+id/enter_mapdata_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fetch pois and floor information demo" />
+
 </LinearLayout>

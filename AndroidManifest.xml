@@ -32,6 +32,9 @@
             android:name=".PositionActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".MapDataActivity"
+            android:label="@string/app_name" />
 
         <meta-data
             android:name="ShituKey"
